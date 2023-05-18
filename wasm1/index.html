@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>HOME</title>
     <script type="module">
-        import init, {func1, func2, func3, func4} from "./pkg/wasm1.js";
+        import init, {func1, func2, func3, func4, func5} from "./pkg/wasm1.js";
 
         init()
             .then(() => {
@@ -12,6 +12,7 @@
                 window.func2 = func2;
                 window.func3 = func3;
                 window.func4 = func4;
+                window.func5 = func5;
 
                 console.log(func1(100, 200));
                 console.log(func2());
@@ -20,7 +21,10 @@
                 const user = func4();
                 console.log(user.id)
                 console.log(user.name)
-                debugger;
+
+                const json_string = func5();
+                console.log(json_string)
+                console.log(JSON.parse(json_string));
             });
     </script>
 </head>

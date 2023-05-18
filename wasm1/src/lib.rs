@@ -1,5 +1,10 @@
+use js_sys::JsString;
+// use js_sys::JsString;
 use wasm_bindgen::prelude::*;
 // use js_sys::{Object, Reflect};
+// use serde_wasm_bindgen;
+use serde::{Serialize, Deserialize};
+use serde_json;
 
 #[wasm_bindgen]
 pub fn func1(a: i32, b: i32) -> i32 {
@@ -19,47 +24,60 @@ pub fn func3() -> Vec<JsValue> {
     ]
 }
 
-#[wasm_bindgen]
+
+#[derive(Serialize, Deserialize)]
 pub struct User {
-    id: i32,
-    name: String,
+    pub id: i32,
+    pub name: String,
 }
 
-#[wasm_bindgen]
 impl User {
-    // #[wasm_bindgen(constructor)]
-    // pub fn new(id: i32, name: String) -> User {
-    //     User { id, name }
-    // }
-
-    #[wasm_bindgen(getter)]
-    pub fn id(&self) -> i32 {
-        self.id
+//     #[wasm_bindgen(constructor)]
+    pub fn new(id: i32, name: &str) -> User {
+        User { id, name: name.into() }
     }
-
-    #[wasm_bindgen(getter)]
-    pub fn name(&self) -> String {
-        self.name.clone()
-    }
-}
-
-#[wasm_bindgen]
-pub fn func4() -> User {
-    User { id: 1, name: "Taro".into() }
+//
+//     #[wasm_bindgen(getter)]
+//     pub fn id(&self) -> i32 {
+//         self.id
+//     }
+//
+//     #[wasm_bindgen(getter)]
+//     pub fn name(&self) -> String {
+//         self.name.clone()
+//     }
 }
 
 // #[wasm_bindgen]
-// pub fn filter(word: &str) -> js_sys::Array {
-//     let items: Vec<JsValue> = data_included::ITEMS.iter()
-//         .filter(|i| i.name.contains(word) || i.description.contains(word))
-//         .map(|i| {
-//             let obj = Object::new();
-//             Reflect::set(&obj, &"id".into(), &JsValue::from(i.id)).unwrap();
-//             Reflect::set(&obj, &"name".into(), &JsValue::from(i.name.clone())).unwrap();
-//             Reflect::set(&obj, &"description".into(), &JsValue::from(i.description.clone())).unwrap();
-//             JsValue::from(obj)
-//         })
-//         .collect();
-//
-//     items.into_iter().collect::<js_sys::Array>()
+// pub fn func4() -> User {
+//     User { id: 1, name: JsValue::from("Taro") }
 // }
+
+#[wasm_bindgen]
+pub fn func4()->String {
+    let user = User{id: 1, name: "taro".to_string()};
+    serde_json::to_string(&user).unwrap()
+}
+
+#[derive(Serialize)]
+struct Users {
+    pub users: Vec<User>,
+}
+
+impl Users {
+    pub fn new(users: Vec<User>) -> Users {
+        Users { users }
+    }
+}
+
+#[wasm_bindgen]
+pub fn func5() -> String {
+    let users: Users = Users::new(
+        vec![
+            User::new(1, "Taro"),
+            User::new(2, "Jiro"),
+            User::new(3, "Saburo"),
+        ]
+    );
+    serde_json::to_string(&users).unwrap()
+}
