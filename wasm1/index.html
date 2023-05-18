@@ -4,17 +4,23 @@
     <meta charset="utf-8"/>
     <title>HOME</title>
     <script type="module">
-        import init, {func1, func2, func3} from "./pkg/wasm1.js";
+        import init, {func1, func2, func3, func4} from "./pkg/wasm1.js";
 
         init()
             .then(() => {
                 window.func1 = func1;
                 window.func2 = func2;
                 window.func3 = func3;
+                window.func4 = func4;
 
                 console.log(func1(100, 200));
                 console.log(func2());
                 console.log(func3());
+
+                const user = func4();
+                console.log(user.id)
+                console.log(user.name)
+                debugger;
             });
     </script>
 </head>

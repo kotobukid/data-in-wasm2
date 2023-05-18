@@ -19,6 +19,34 @@ pub fn func3() -> Vec<JsValue> {
     ]
 }
 
+#[wasm_bindgen]
+pub struct User {
+    id: i32,
+    name: String,
+}
+
+#[wasm_bindgen]
+impl User {
+    // #[wasm_bindgen(constructor)]
+    // pub fn new(id: i32, name: String) -> User {
+    //     User { id, name }
+    // }
+
+    #[wasm_bindgen(getter)]
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn name(&self) -> String {
+        self.name.clone()
+    }
+}
+
+#[wasm_bindgen]
+pub fn func4() -> User {
+    User { id: 1, name: "Taro".into() }
+}
 
 // #[wasm_bindgen]
 // pub fn filter(word: &str) -> js_sys::Array {
