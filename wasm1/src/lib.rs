@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use js_sys::{Object, Reflect, };
+// use js_sys::{Object, Reflect};
 
 #[wasm_bindgen]
 pub fn func1(a: i32, b: i32) -> i32 {
@@ -7,8 +7,16 @@ pub fn func1(a: i32, b: i32) -> i32 {
 }
 
 #[wasm_bindgen]
-pub fn func2 () -> String {
+pub fn func2() -> String {
     "Hello".to_string()
+}
+
+#[wasm_bindgen]
+pub fn func3() -> Vec<JsValue> {
+    vec![
+        JsValue::from("Hello"),
+        JsValue::from("World"),
+    ]
 }
 
 
