@@ -4,13 +4,15 @@
     <meta charset="utf-8"/>
     <title>HOME</title>
     <script type="module">
-        import init, {func1} from "./pkg/wasm1.js";
+        import init, {func1, func2} from "./pkg/wasm1.js";
 
         init()
             .then(() => {
-                window.func1 = func1
+                window.func1 = func1;
+                window.func2 = func2;
 
                 console.log(func1(100, 200));
+                console.log(func2());
             });
     </script>
 </head>

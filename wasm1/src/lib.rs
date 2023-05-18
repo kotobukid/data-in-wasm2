@@ -6,6 +6,11 @@ pub fn func1(a: i32, b: i32) -> i32 {
     a + b
 }
 
+#[wasm_bindgen]
+pub fn func2 () -> String {
+    "Hello".to_string()
+}
+
 
 // #[wasm_bindgen]
 // pub fn filter(word: &str) -> js_sys::Array {
